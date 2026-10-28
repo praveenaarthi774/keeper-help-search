@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Keeper Help Search</title>
+  <style>
+    :root { --bg:#0f172a; --card:#1e293b; --accent:#38bdf8; --text:#e2e8f0; --muted:#94a3b8; }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0; font-family: system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+      background: var(--bg); color: var(--text); min-height: 100vh;
+    }
+    .wrap { max-width: 820px; margin: 0 auto; padding: 40px 20px; }
+    h1 { font-size: 1.8rem; margin-bottom: 4px; }
+    p.sub { color: var(--muted); margin-top: 0; }
+    .search-box { display: flex; gap: 10px; margin: 24px 0; position: relative; }
+    .input-wrap { flex: 1; position: relative; }
+    input[type="text"] {
+      width: 100%; padding: 14px 16px; border-radius: 10px; border: 1px solid #334155;
+      background: var(--card); color: var(--text); font-size: 1rem;
+    }
+    input[type="text"]:focus { outline: none; border-color: var(--accent); }
+    /* suggestions dropdown */
+    .suggestions {
+      position: absolute; top: calc(100% + 4px); left: 0; right: 0; z-index: 20;
+      background: var(--card); border: 1px solid #334155; border-radius: 10px;
+      overflow: hidden; display: none;
+    }
+    .suggestions.open { display: block; }
+    .suggestion {
+      padding: 11px 16px; cursor: pointer; font-size: 0.95rem; color: var(--text);
+      border-bottom: 1px solid #27354a;
+    }
+    .suggestion:last-child { border-bottom: none; }
+    .suggestion:hover, .suggestion.active { background: #0b4a63; color: var(--accent); }
+    button {
+      padding: 14px 22px; border: none; border-radius: 10px; cursor: pointer;
+      background: var(--accent); color: #082f49; font-weight: 600; font-size: 1rem;
+    }
+    button:disabled { opacity: 0.6; cursor: not-allowed; }
+    .result {
+      background: var(--card); border: 1px solid #334155; border-radius: 12px;
+      padding: 16px 18px; margin-bottom: 14px;
+    }
+    .result h3 { margin: 0 0 6px; font-size: 1.1rem; }
+    .meta { display: flex; gap: 10px; align-items: center; margin-bottom: 8px; flex-wrap: wrap; }
+    .tag {
+      font-size: 0.75rem; padding: 3px 10px; border-radius: 999px;
+      background: #0b4a63; color: var(--accent);
+    }
+    .score {
+      font-size: 0.8rem; color: var(--muted); margin-left: auto;
+    }
+    .bar { height: 6px; background: #334155; border-radius: 4px; overflow: hidden; margin-top: 8px; }
+    .bar > span { display: block; height: 100%; background: var(--accent); }
+    .content { color: #cbd5e1; font-size: 0.92rem; line-height: 1.5; }
+    .content a { color: var(--accent); text-decoration: underline; word-break: break-all; }
+    .content a:hover { color: #7dd3fc; }
+    .msg { color: var(--muted); text-align: center; padding: 20px; }
+    .error { color: #fca5a5; }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <h1>Keeper Help Search</h1>
+    <p class="sub">Search Keeper support articles by meaning, not just keywords.</p>
+
+    <div class="search-box">
+      <div class="input-wrap">
+        <input id="query" type="text"
+               placeholder="e.g. I can't sign in to the Keeper desktop app"
+               autocomplete="off" />
+        <div id="suggestions" class="suggestions"></div>
+      </div>
+      <button id="btn" onclick="runSearch()">Search</button>
+    </div>
+
+    <div id="results"></div>
+  </div>
+
+  <script>
+    const input = document.getElementById("query");
+    const btn = document.getElementById("btn");
+    const resultsEl = document.getElementById("results");
+    const suggestEl = document.getElementById("suggestions");
+
+    let suggestItems = [];   // current suggestion strings
+    let activeIndex = -1;    // highlighted suggestion for arrow keys
+    let debounceTimer = null;
+
+    // --- fetch suggestions as the user types (typo tolerant) -------------
+    input.addEventListener("input", () => {
+      const q = input.value.trim();
+      activeIndex = -1;
+      clearTimeout(debounceTimer);
+      if (q.length < 2) { closeSuggestions(); return; }
+      // debounce so we don't call the server on every keystroke
+      debounceTimer = setTimeout(() => fetchSuggestions(q), 150);
+    });
+
+    async function fetchSuggestions(q) {
+      try {
+        const res = await fetch(`/suggest?q=${encodeURIComponent(q)}`);
+        const data = await res.json();
+        suggestItems = data.suggestions || [];
+        renderSuggestions();
+      } catch (_) {
+        closeSuggestions();
+      }
+    }
+
+    function renderSuggestions() {
+      if (!suggestItems.length) { closeSuggestions(); return; }
+      suggestEl.innerHTML = suggestItems.map((s, i) =>
+        `<div class="suggestion${i === activeIndex ? " active" : ""}"
+              data-i="${i}">${escapeHtml(s)}</div>`
+      ).join("");
+      suggestEl.classList.add("open");
+
+      // click a suggestion -> use it and search
+      suggestEl.querySelectorAll(".suggestion").forEach(el => {
+        el.addEventListener("mousedown", (e) => {
+          e.preventDefault();
+          chooseSuggestion(Number(el.dataset.i));
+        });
+      });
+    }
+
+    function chooseSuggestion(i) {
+      if (i < 0 || i >= suggestItems.length) return;
+      input.value = suggestItems[i];
+      closeSuggestions();
+      runSearch();
+    }
+
+    function closeSuggestions() {
+      suggestEl.classList.remove("open");
+      suggestEl.innerHTML = "";
+      activeIndex = -1;
+    }
+
+    // hide dropdown when clicking away
+    document.addEventListener("click", (e) => {
+      if (!suggestEl.contains(e.target) && e.target !== input) closeSuggestions();
+    });
+
+    // --- keyboard: arrows to move, Enter to pick/search, Esc to close ----
+    input.addEventListener("keydown", (e) => {
+      const open = suggestEl.classList.contains("open");
+      if (open && e.key === "ArrowDown") {
+        e.preventDefault();
+        activeIndex = Math.min(activeIndex + 1, suggestItems.length - 1);
+        renderSuggestions();
+      } else if (open && e.key === "ArrowUp") {
+        e.preventDefault();
+        activeIndex = Math.max(activeIndex - 1, 0);
+        renderSuggestions();
+      } else if (e.key === "Enter") {
+        if (open && activeIndex >= 0) {
+          chooseSuggestion(activeIndex);
+        } else {
+          closeSuggestions();
+          runSearch();
+        }
+      } else if (e.key === "Escape") {
+        closeSuggestions();
+      }
+    });
+
+    async function runSearch() {
+      const query = input.value.trim();
+      resultsEl.innerHTML = "";
+
+      if (!query) {
+        resultsEl.innerHTML = '<p class="msg error">Please enter a search query.</p>';
+        return;
+      }
+
+      btn.disabled = true;
+      btn.textContent = "Searching...";
+
+      try {
+        const res = await fetch("/search", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ query })
+        });
+        const data = await res.json();
+
+        if (!res.ok) {
+          resultsEl.innerHTML = `<p class="msg error">${data.error || "Search failed."}</p>`;
+          return;
+        }
+
+        if (!data.results || data.results.length === 0) {
+          resultsEl.innerHTML = `<p class="msg">${data.message || "No relevant documents found."}</p>`;
+          return;
+        }
+
+        resultsEl.innerHTML = data.results.map(renderResult).join("");
+      } catch (err) {
+        resultsEl.innerHTML = `<p class="msg error">Could not reach the server.</p>`;
+      } finally {
+        btn.disabled = false;
+        btn.textContent = "Search";
+      }
+    }
+
+    function renderResult(r) {
+      const pct = Math.round(r.score * 100);
+      return `
+        <div class="result">
+          <div class="meta">
+            <span class="tag">${escapeHtml(r.category)}</span>
+            <span class="score">similarity: ${r.score} (${pct}%)</span>
+          </div>
+          <h3>${escapeHtml(r.title)}</h3>
+          <div class="bar"><span style="width:${pct}%"></span></div>
+          <p class="content">${linkify(r.content)}</p>
+        </div>`;
+    }
+
+    function escapeHtml(s) {
+      return String(s)
+        .replace(/&/g, "&amp;").replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;").replace(/"/g, "&quot;");
+    }
+
+    // Escape first (safety), THEN turn URLs and emails into clickable links.
+    function linkify(s) {
+      let text = escapeHtml(s);
+      // Web links (http/https). Trailing punctuation like a period or #
+      // is handled so the link doesn't swallow sentence punctuation.
+      text = text.replace(/https?:\/\/[^\s<]+/g, (url) => {
+        let trail = "";
+        // keep a trailing '#' as part of the vault URL, but strip a period
+        while (/[.,);]$/.test(url)) { trail = url.slice(-1) + trail; url = url.slice(0, -1); }
+        return `<a href="${url}" target="_blank" rel="noopener noreferrer">${url}</a>${trail}`;
+      });
+      // Email addresses -> mailto links.
+      text = text.replace(/[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}/g,
+        (mail) => `<a href="mailto:${mail}">${mail}</a>`);
+      return text;
+    }
+  </script>
+</body>
+</html>

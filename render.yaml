@@ -1,0 +1,14 @@
+# Render Blueprint - tells Render how to build and run the app.
+# With this file in the repo, Render can auto-configure the service.
+services:
+  - type: web
+    name: keeper-help-search
+    runtime: python
+    plan: free
+    buildCommand: pip install -r requirements.txt
+    # One worker, long timeout: the first request loads the model.
+    # Preload so the model/index build once at startup, not per worker spawn.
+    startCommand: gunicorn app:app --workers 1 --timeout 120 --preload
+    envVars:
+      - key: PYTHON_VERSION
+        value: "3.12.4"
