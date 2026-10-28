@@ -11,4 +11,4 @@ services:
     startCommand: gunicorn app:app --workers 1 --timeout 120 --preload
     envVars:
       - key: PYTHON_VERSION
-        value: "3.12.4"
+        value: "3.11.9"
