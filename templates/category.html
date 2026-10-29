@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% block title %}{{ category_name }} - Keeper Knowledge Base{% endblock %}
+
+{% block content %}
+  <div class="crumbs">
+    <a href="/">Home</a><span>/</span>
+    <a href="/categories">Categories</a><span>/</span>{{ category_name }}
+  </div>
+
+  <h1>{{ category.icon }} {{ category_name }}</h1>
+  <p class="lead">{{ category.description }}</p>
+
+  {% for a in articles %}
+    <a class="topic" href="/article/{{ a.slug }}">
+      <h4>{{ a.title }}</h4>
+      <p>{{ a.summary }}</p>
+    </a>
+  {% else %}
+    <p class="msg">No articles in this category yet.</p>
+  {% endfor %}
+
+  <a class="backlink" href="/categories">&larr; Back to all categories</a>
+{% endblock %}

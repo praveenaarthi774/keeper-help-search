@@ -73,6 +73,10 @@ def load_documents(path: str | None = None) -> List[Dict]:
                 "title": title,
                 "category": str(row["category"]).strip(),
                 "content": content,
+                # Optional column; empty string if not present.
+                "article_url": str(row["article_url"]).strip()
+                if "article_url" in df.columns
+                else "",
             }
         )
 

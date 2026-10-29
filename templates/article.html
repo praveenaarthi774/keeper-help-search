@@ -1,0 +1,79 @@
+{% extends "base.html" %}
+{% block title %}{{ a.title }} - Keeper Knowledge Base{% endblock %}
+
+{% block content %}
+  <div class="crumbs">
+    <a href="/">Home</a><span>/</span>
+    <a href="/categories">Categories</a><span>/</span>
+    <a href="/category/{{ a.category }}">{{ a.category }}</a><span>/</span>{{ a.title }}
+  </div>
+
+  <article class="article">
+    <h1>{{ a.title }}</h1>
+    <p class="summary">{{ a.summary }}</p>
+
+    <section>
+      <h2>Overview</h2>
+      <p>{{ a.overview | linkify | safe }}</p>
+    </section>
+
+    <section>
+      <h2>Purpose</h2>
+      <p>{{ a.purpose | linkify | safe }}</p>
+    </section>
+
+    <section>
+      <h2>When to use it</h2>
+      <p>{{ a.when_to_use | linkify | safe }}</p>
+    </section>
+
+    <section>
+      <h2>Prerequisites</h2>
+      <ul>
+        {% for p in a.prerequisites %}<li>{{ p | linkify | safe }}</li>{% endfor %}
+      </ul>
+    </section>
+
+    <section>
+      <h2>Step-by-step instructions</h2>
+      <ol class="steps">
+        {% for s in a.steps %}<li>{{ s | linkify | safe }}</li>{% endfor %}
+      </ol>
+    </section>
+
+    <section>
+      <h2>Expected result</h2>
+      <p>{{ a.expected_result | linkify | safe }}</p>
+    </section>
+
+    <section>
+      <h2>Troubleshooting</h2>
+      <ul>
+        {% for t in a.troubleshooting %}<li>{{ t | linkify | safe }}</li>{% endfor %}
+      </ul>
+    </section>
+
+    <section>
+      <h2>When to contact support</h2>
+      <p>{{ a.contact_support | linkify | safe }}</p>
+    </section>
+
+    <section>
+      <h2>Security notes</h2>
+      {% for n in a.security_notes %}
+        <div class="note">{{ n | linkify | safe }}</div>
+      {% endfor %}
+    </section>
+
+    {% if related %}
+    <section class="related">
+      <h2>Related articles</h2>
+      {% for r in related %}
+        <a href="/article/{{ r.slug }}">{{ r.title }}</a>
+      {% endfor %}
+    </section>
+    {% endif %}
+  </article>
+
+  <a class="backlink" href="/category/{{ a.category }}">&larr; Back to {{ a.category }}</a>
+{% endblock %}

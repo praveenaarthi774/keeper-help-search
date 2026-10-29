@@ -1,0 +1,686 @@
+{
+  "categories": {
+    "Authentication": {
+      "icon": "🔐",
+      "description": "Signing in to Keeper, recovering access, and verifying your identity."
+    },
+    "Access Management": {
+      "icon": "🗝️",
+      "description": "Requesting access, shared folders, teams, and fixing missing permissions."
+    },
+    "Troubleshooting": {
+      "icon": "🛠️",
+      "description": "Fixing sign-in problems, device approvals, updates, and SSO issues."
+    },
+    "Account Management": {
+      "icon": "👤",
+      "description": "Transferring accounts and records when people change roles or leave."
+    },
+    "Secure Sharing": {
+      "icon": "🤝",
+      "description": "Sharing records safely, including one-time shares and external sharing."
+    },
+    "Licensing and Integration": {
+      "icon": "🔗",
+      "description": "Keeper Secrets Manager, CI/CD integrations, and feature availability."
+    }
+  },
+  "articles": [
+    {
+      "slug": "keeper-login-instructions",
+      "title": "Keeper Login Instructions",
+      "category": "Authentication",
+      "summary": "How to sign in to the Ericsson Keeper Password Vault using Enterprise SSO.",
+      "overview": "This guide explains how to log in to the Ericsson Keeper Password Vault through the web using your Ericsson credentials and Enterprise Single Sign-On (SSO).",
+      "purpose": "Logging in gives you secure access to the passwords and records stored in your Keeper vault.",
+      "when_to_use": "Use this whenever you need to open your Keeper vault from a browser.",
+      "prerequisites": [
+        "An active Ericsson account.",
+        "Approved access to the Ericsson Password Vault. If you have never had access, raise an access request first.",
+        "A supported, up-to-date web browser."
+      ],
+      "steps": [
+        "Open the Keeper vault login page at https://keepersecurity.eu/vault/#",
+        "Enter your Ericsson email ID in the login box.",
+        "Select Enterprise SSO Login.",
+        "Choose the EU Region.",
+        "Click Next and complete any authentication prompts.",
+        "You are now logged into the Ericsson Password Vault."
+      ],
+      "expected_result": "Your Keeper vault opens and you can see your stored records and folders.",
+      "troubleshooting": [
+        "If the page does not load, check your internet connection and that the URL is exactly https://keepersecurity.eu/vault/#",
+        "If sign-in fails, confirm you selected Enterprise SSO Login and the EU Region.",
+        "If you are asked for device approval, see the Admin Approval for New Devices article."
+      ],
+      "contact_support": "If you still cannot sign in after checking the above, contact ericsson.password.vault.support@ericsson.com with your Ericsson email ID, the browser you used, and any error message shown.",
+      "security_notes": [
+        "Never share your Ericsson credentials.",
+        "Always confirm the URL is the official https://keepersecurity.eu/vault/# before entering any details."
+      ],
+      "related": ["password-recovery", "two-factor-authentication", "enterprise-sso-login-problems"]
+    },
+    {
+      "slug": "password-recovery",
+      "title": "Password Recovery",
+      "category": "Authentication",
+      "summary": "What to do if you cannot sign in to your Keeper account.",
+      "overview": "This guide explains how to regain access to Keeper if you cannot sign in. Because Ericsson uses Enterprise SSO, your Keeper access is tied to your Ericsson corporate account.",
+      "purpose": "Restores your ability to sign in when authentication fails.",
+      "when_to_use": "Use this if you are unable to log in or your sign-in is being rejected.",
+      "prerequisites": [
+        "An active Ericsson account.",
+        "Access to your configured authentication method (for example, your corporate login)."
+      ],
+      "steps": [
+        "Go to the Keeper vault login page at https://keepersecurity.eu/vault/#",
+        "Enter your Ericsson email ID and select Enterprise SSO Login.",
+        "Complete the corporate authentication steps when prompted.",
+        "If your corporate sign-in itself is failing, recover your Ericsson account through the standard Ericsson IT process. [VERIFY WITH ERICSSON: exact corporate password reset channel]",
+        "Once your corporate login works, return to the vault and sign in again."
+      ],
+      "expected_result": "You can authenticate through Enterprise SSO and open your vault.",
+      "troubleshooting": [
+        "If Enterprise SSO rejects you, the issue is usually with the corporate account, not Keeper itself.",
+        "Clear your browser cache or try a private window if the login page behaves unexpectedly."
+      ],
+      "contact_support": "If you cannot sign in after recovering your corporate account, contact ericsson.password.vault.support@ericsson.com and describe exactly where the login fails.",
+      "security_notes": [
+        "Keeper support will never ask for your password. Do not share it with anyone."
+      ],
+      "related": ["keeper-login-instructions", "enterprise-sso-login-problems", "two-factor-authentication"]
+    },
+    {
+      "slug": "two-factor-authentication",
+      "title": "Two-Factor Authentication",
+      "category": "Authentication",
+      "summary": "Add and use an extra verification step when signing in to Keeper.",
+      "overview": "Two-factor authentication (2FA) adds an extra verification step when you sign in, so a password alone is not enough to access the vault.",
+      "purpose": "Protects your vault even if your credentials are compromised.",
+      "when_to_use": "Use this when setting up 2FA or when you are prompted for a verification code at sign-in.",
+      "prerequisites": [
+        "Access to your Keeper vault.",
+        "An authenticator app or the verification method required by your organization. [VERIFY WITH ERICSSON: approved 2FA methods]"
+      ],
+      "steps": [
+        "Sign in to your vault at https://keepersecurity.eu/vault/#",
+        "Follow the configured two-factor authentication method set by your organization.",
+        "When prompted at sign-in, enter the one-time verification code from your authenticator.",
+        "Complete the sign-in."
+      ],
+      "expected_result": "You complete the extra verification step and your vault opens.",
+      "troubleshooting": [
+        "If your code is rejected, check that your device clock is correct.",
+        "If you lost your 2FA device, use your backup recovery codes, then register a new device."
+      ],
+      "contact_support": "If you cannot complete verification and have no recovery codes, contact ericsson.password.vault.support@ericsson.com.",
+      "security_notes": [
+        "Keep your backup recovery codes somewhere safe and private.",
+        "Never share verification codes with anyone, including support staff."
+      ],
+      "related": ["keeper-login-instructions", "password-recovery"]
+    },
+    {
+      "slug": "admin-approval-for-new-devices",
+      "title": "Admin Approval for New Devices",
+      "category": "Authentication",
+      "summary": "Why a new device may need approval before it can open the vault.",
+      "overview": "Keeper may require administrator approval when you try to access the vault from a new or unrecognized device.",
+      "purpose": "Protects the vault by confirming that access from a new device is legitimate.",
+      "when_to_use": "Use this when you sign in from a new computer or phone and are told the device needs approval.",
+      "prerequisites": [
+        "A valid sign-in attempt from the new device.",
+        "Your Ericsson email ID."
+      ],
+      "steps": [
+        "Attempt to sign in from the new device at https://keepersecurity.eu/vault/#",
+        "If prompted, confirm the device approval request from your side (for example, approving from an already-trusted device or confirming an email prompt). [VERIFY WITH ERICSSON: exact self-approval method]",
+        "If administrator approval is required, wait for the support team to approve the device.",
+        "Once approved, sign in again on the new device."
+      ],
+      "expected_result": "The new device is approved and you can sign in from it.",
+      "troubleshooting": [
+        "If approval is taking a long time, see the Pending Device Approval article.",
+        "Make sure you are approving the correct device request."
+      ],
+      "contact_support": "If approval is required or stuck, contact ericsson.password.vault.support@ericsson.com with your Ericsson email ID and the device details.",
+      "security_notes": [
+        "Only approve devices you recognize and are actually using.",
+        "If you receive an unexpected approval request, do not approve it and report it to support."
+      ],
+      "related": ["pending-device-approval", "keeper-login-instructions"]
+    },
+    {
+      "slug": "request-keeper-access",
+      "title": "Request Keeper Access",
+      "category": "Access Management",
+      "summary": "How to request access to the Ericsson Password Vault for the first time.",
+      "overview": "If you do not have access to the Ericsson Password Vault yet, you must raise an access request and have it approved before you can log in.",
+      "purpose": "Grants you authorized access to the vault.",
+      "when_to_use": "Use this the first time you need Keeper, or when you need a new access group.",
+      "prerequisites": [
+        "An active Ericsson account.",
+        "A business reason for needing access."
+      ],
+      "steps": [
+        "Open the Ericsson Password Vault access request through the approved Ericsson IT request process. [VERIFY WITH ERICSSON: exact MySupport request link]",
+        "You will be redirected to the Ericsson MySupport portal.",
+        "Raise an access request for Ericsson Password Vault and fill in the required details.",
+        "Submit the request for approval.",
+        "Wait for the request to be approved and the required access group to be assigned.",
+        "Once approved, go to https://keepersecurity.eu/vault/# and sign in with Enterprise SSO Login, choosing the EU Region."
+      ],
+      "expected_result": "After approval, you can sign in to the vault.",
+      "troubleshooting": [
+        "If you are unsure which access group to request, check with your manager or support. [VERIFY WITH ERICSSON: access group names]",
+        "If your request is pending for a long time, follow up through the request portal."
+      ],
+      "contact_support": "For help with the request, contact ericsson.password.vault.support@ericsson.com with your Ericsson email ID and the resource you need.",
+      "security_notes": [
+        "Only request the access you actually need for your role."
+      ],
+      "related": ["keeper-login-instructions", "missing-access-troubleshooting", "shared-folder-access"]
+    },
+    {
+      "slug": "shared-folder-access",
+      "title": "Shared Folder Access",
+      "category": "Access Management",
+      "summary": "What to do if you cannot open a shared folder in Keeper.",
+      "overview": "Shared folders let a team share records. If you cannot see or open a shared folder, you may not have been added to it yet.",
+      "purpose": "Helps you gain access to a shared folder you should be able to use.",
+      "when_to_use": "Use this when a folder you expect to see is missing or you get a permission error.",
+      "prerequisites": [
+        "Access to your Keeper vault.",
+        "Knowing which shared folder or team you should belong to."
+      ],
+      "steps": [
+        "Sign in to your vault at https://keepersecurity.eu/vault/#",
+        "Check whether the shared folder appears in your folder list.",
+        "If it is missing, confirm with the folder owner that you have been added to the correct shared folder or authorized team.",
+        "Ask the folder owner to add you if needed."
+      ],
+      "expected_result": "The shared folder appears in your vault and you can open it.",
+      "troubleshooting": [
+        "A folder can be shared with specific permissions; you may be able to view but not edit. [VERIFY WITH ERICSSON: permission model specifics]",
+        "If you were recently added, sign out and back in to refresh."
+      ],
+      "contact_support": "If access is still unavailable, contact the folder owner or ericsson.password.vault.support@ericsson.com to verify your permissions.",
+      "security_notes": [
+        "Do not request access to folders you do not need.",
+        "Treat shared records as confidential."
+      ],
+      "related": ["request-keeper-access", "team-membership-and-permissions", "missing-access-troubleshooting"]
+    },
+    {
+      "slug": "team-membership-and-permissions",
+      "title": "Team Membership and Permissions",
+      "category": "Access Management",
+      "summary": "How team membership controls what you can access in Keeper.",
+      "overview": "In Keeper, access to many shared folders is granted through teams. Being in the right team gives you the folders and permissions assigned to that team.",
+      "purpose": "Explains how to get the access your role requires through team membership.",
+      "when_to_use": "Use this when you need access that is managed at the team level, or when your permissions look wrong.",
+      "prerequisites": [
+        "Access to your Keeper vault.",
+        "Knowing which team your role requires. [VERIFY WITH ERICSSON: team names and what each grants]"
+      ],
+      "steps": [
+        "Confirm which team provides the access you need. [VERIFY WITH ERICSSON: how users look up team-to-access mapping]",
+        "Request to be added to that team through the approved Ericsson access request process.",
+        "Wait for approval and assignment.",
+        "Sign in again to see the newly granted folders."
+      ],
+      "expected_result": "You are added to the team and gain the folders and permissions it grants.",
+      "troubleshooting": [
+        "If you are in the team but still cannot access something, the specific folder permission may differ. [VERIFY WITH ERICSSON]"
+      ],
+      "contact_support": "Contact ericsson.password.vault.support@ericsson.com with your Ericsson email ID and the team or access you need.",
+      "security_notes": [
+        "Team membership should match your actual role. Report access you should not have."
+      ],
+      "related": ["request-keeper-access", "shared-folder-access", "missing-access-troubleshooting"]
+    },
+    {
+      "slug": "missing-access-troubleshooting",
+      "title": "Missing Access Troubleshooting",
+      "category": "Access Management",
+      "summary": "Steps to take when expected records or folders are missing.",
+      "overview": "This guide helps when you can sign in but cannot see records, folders, or features you expect.",
+      "purpose": "Identifies why access is missing and how to restore it.",
+      "when_to_use": "Use this when something you used to see is gone, or new access has not appeared.",
+      "prerequisites": [
+        "Successful sign-in to your vault."
+      ],
+      "steps": [
+        "Sign out and sign back in at https://keepersecurity.eu/vault/# to refresh your access.",
+        "Confirm whether your access request or team assignment has actually been approved.",
+        "Check with the folder or record owner that you are still shared on it.",
+        "If access was recently changed, allow time for the identity synchronization process to apply it."
+      ],
+      "expected_result": "The missing records or folders reappear once access is confirmed and synchronized.",
+      "troubleshooting": [
+        "Recently granted access can take some time to appear after synchronization. [VERIFY WITH ERICSSON: typical sync timing]"
+      ],
+      "contact_support": "If access is still missing, contact ericsson.password.vault.support@ericsson.com with your Ericsson email ID and the exact records or folders affected.",
+      "security_notes": [
+        "Do not attempt to work around missing access; request it properly."
+      ],
+      "related": ["request-keeper-access", "shared-folder-access", "team-membership-and-permissions"]
+    },
+    {
+      "slug": "desktop-application-login-issues",
+      "title": "Desktop Application Login Issues",
+      "category": "Troubleshooting",
+      "summary": "What to do when you cannot sign in to the Keeper desktop app.",
+      "overview": "This guide helps when the Keeper desktop application will not let you sign in, even though your account is valid.",
+      "purpose": "Restores access through the desktop application.",
+      "when_to_use": "Use this when the desktop app sign-in fails or behaves unexpectedly.",
+      "prerequisites": [
+        "A valid Keeper account with approved access."
+      ],
+      "steps": [
+        "First, check whether you can sign in through the web vault at https://keepersecurity.eu/vault/#",
+        "If the web vault works but the desktop app does not, close and restart the desktop application.",
+        "Check for and install any available updates for the desktop application.",
+        "Try signing in again."
+      ],
+      "expected_result": "You can sign in through the desktop application.",
+      "troubleshooting": [
+        "If the web vault also fails, the issue is with your account or network, not the app.",
+        "Reinstalling the app can clear corrupted local data. [VERIFY WITH ERICSSON: approved install source]"
+      ],
+      "contact_support": "If the issue continues, contact ericsson.password.vault.support@ericsson.com with the error details and your app version.",
+      "security_notes": [
+        "Only install the Keeper desktop app from the approved Ericsson software source. [VERIFY WITH ERICSSON]"
+      ],
+      "related": ["application-update-issues", "enterprise-sso-login-problems", "keeper-login-instructions"]
+    },
+    {
+      "slug": "pending-device-approval",
+      "title": "Pending Device Approval",
+      "category": "Troubleshooting",
+      "summary": "What to do while a device approval request is waiting.",
+      "overview": "When a device approval request is pending, your sign-in from a new device is waiting for confirmation before it is allowed.",
+      "purpose": "Explains how to move a stuck device approval forward.",
+      "when_to_use": "Use this when you are told your device approval is pending.",
+      "prerequisites": [
+        "A sign-in attempt from the new device."
+      ],
+      "steps": [
+        "Check whether any user confirmation is still needed from your side and complete it. [VERIFY WITH ERICSSON: exact confirmation step]",
+        "Confirm whether administrator action is still required.",
+        "Wait for the device verification and authorization process to complete.",
+        "Once approved, sign in again from the device."
+      ],
+      "expected_result": "The device is approved and you can sign in.",
+      "troubleshooting": [
+        "If it stays pending too long, contact support with the device details."
+      ],
+      "contact_support": "If approval is stuck, contact ericsson.password.vault.support@ericsson.com with your Ericsson email ID and the device.",
+      "security_notes": [
+        "Only confirm device approvals you actually initiated."
+      ],
+      "related": ["admin-approval-for-new-devices", "keeper-login-instructions"]
+    },
+    {
+      "slug": "application-update-issues",
+      "title": "Application Update Issues",
+      "category": "Troubleshooting",
+      "summary": "Fixing problems after a Keeper desktop application update.",
+      "overview": "This guide helps when the Keeper desktop application shows an update prompt or keeps having problems after updating.",
+      "purpose": "Gets the application back to a working, up-to-date state.",
+      "when_to_use": "Use this when the app prompts to update or misbehaves after an update.",
+      "prerequisites": [
+        "The Keeper desktop application installed."
+      ],
+      "steps": [
+        "Check the approved software distribution method and confirm which application version you should be on. [VERIFY WITH ERICSSON: approved distribution method]",
+        "Install the correct update.",
+        "Restart the application.",
+        "If problems continue, reinstall the application from the approved source."
+      ],
+      "expected_result": "The application runs on the correct, updated version without errors.",
+      "troubleshooting": [
+        "If reinstalling or updating does not help, note the exact error and version."
+      ],
+      "contact_support": "If issues remain, contact ericsson.password.vault.support@ericsson.com with the version and error details.",
+      "security_notes": [
+        "Only update or install from the approved Ericsson source. [VERIFY WITH ERICSSON]"
+      ],
+      "related": ["desktop-application-login-issues"]
+    },
+    {
+      "slug": "enterprise-sso-login-problems",
+      "title": "Enterprise SSO Login Problems",
+      "category": "Troubleshooting",
+      "summary": "Fixing issues with Enterprise SSO sign-in to Keeper.",
+      "overview": "Ericsson Keeper uses Enterprise Single Sign-On (SSO). This guide helps when the SSO sign-in step fails.",
+      "purpose": "Restores sign-in through Enterprise SSO.",
+      "when_to_use": "Use this when SSO sign-in fails or loops without logging you in.",
+      "prerequisites": [
+        "An active Ericsson corporate account."
+      ],
+      "steps": [
+        "Go to https://keepersecurity.eu/vault/# and enter your Ericsson email ID.",
+        "Make sure you select Enterprise SSO Login and choose the EU Region.",
+        "Complete the corporate authentication prompts.",
+        "If sign-in loops, clear your browser cache or use a private window and try again."
+      ],
+      "expected_result": "SSO completes and your vault opens.",
+      "troubleshooting": [
+        "A failing corporate login means the problem is upstream of Keeper; recover your corporate account first.",
+        "Make sure the EU Region is selected; the wrong region will fail."
+      ],
+      "contact_support": "If SSO still fails, contact ericsson.password.vault.support@ericsson.com and describe exactly where it fails.",
+      "security_notes": [
+        "Always use the official vault URL and your own corporate account."
+      ],
+      "related": ["keeper-login-instructions", "password-recovery", "desktop-application-login-issues"]
+    },
+    {
+      "slug": "account-transfer",
+      "title": "Account Transfer",
+      "category": "Account Management",
+      "summary": "How Keeper accounts are transferred when roles change.",
+      "overview": "When a Keeper user changes roles or leaves, their account may need to be handled according to organizational policy. Account transfer and record ownership transfer are different processes.",
+      "purpose": "Ensures vault access is handled correctly when a person moves on.",
+      "when_to_use": "Use this when a user is leaving or changing roles and their account must be managed.",
+      "prerequisites": [
+        "Appropriate permissions and authorization to request a transfer. [VERIFY WITH ERICSSON: who can authorize]"
+      ],
+      "steps": [
+        "Confirm whether an account transfer or a record ownership transfer is needed (they are different).",
+        "Raise the request through the approved Ericsson process. [VERIFY WITH ERICSSON: exact process]",
+        "Provide the required authorization.",
+        "Wait for the transfer to be completed by the responsible team."
+      ],
+      "expected_result": "The account is handled per policy and access is correctly reassigned.",
+      "troubleshooting": [
+        "If you are unsure which transfer type applies, ask support before proceeding."
+      ],
+      "contact_support": "Contact ericsson.password.vault.support@ericsson.com with the user involved and the business reason.",
+      "security_notes": [
+        "Account transfers move access to sensitive data; ensure proper authorization."
+      ],
+      "related": ["record-ownership-transfer", "user-departure-and-record-handover"]
+    },
+    {
+      "slug": "record-ownership-transfer",
+      "title": "Record Ownership Transfer",
+      "category": "Account Management",
+      "summary": "Transferring ownership of specific vault records.",
+      "overview": "Record ownership transfer moves ownership of specific records from one user to another, which is different from transferring a whole account.",
+      "purpose": "Keeps important records owned and maintained by the right person.",
+      "when_to_use": "Use this when specific records must change owner, for example when responsibilities move.",
+      "prerequisites": [
+        "The appropriate permissions and authorization. [VERIFY WITH ERICSSON: who can authorize]"
+      ],
+      "steps": [
+        "Identify exactly which records need a new owner.",
+        "Raise a record ownership transfer request through the approved Ericsson process. [VERIFY WITH ERICSSON: exact process]",
+        "Provide authorization and the new owner's details.",
+        "Wait for the transfer to be completed."
+      ],
+      "expected_result": "The specified records are owned by the new user.",
+      "troubleshooting": [
+        "Ownership transfer is not the same as sharing; confirm which you need."
+      ],
+      "contact_support": "Contact ericsson.password.vault.support@ericsson.com with the records and the new owner.",
+      "security_notes": [
+        "Transferring ownership grants full control of those records; authorize carefully."
+      ],
+      "related": ["account-transfer", "user-departure-and-record-handover"]
+    },
+    {
+      "slug": "user-departure-and-record-handover",
+      "title": "User Departure and Record Handover",
+      "category": "Account Management",
+      "summary": "Handling vault records when someone leaves the organization.",
+      "overview": "When a user leaves Ericsson, the records they owned may need to be handed over so the team does not lose access.",
+      "purpose": "Prevents loss of important shared knowledge when a person departs.",
+      "when_to_use": "Use this during offboarding of a Keeper user.",
+      "prerequisites": [
+        "Authorization to manage the departing user's records. [VERIFY WITH ERICSSON]"
+      ],
+      "steps": [
+        "Identify the records and folders owned by the departing user.",
+        "Decide who should take ownership of each.",
+        "Raise the appropriate transfer request(s) through the approved Ericsson process. [VERIFY WITH ERICSSON: exact offboarding process]",
+        "Confirm the handover is complete before the user's access is removed."
+      ],
+      "expected_result": "Ownership is transferred and the team retains access after the user leaves.",
+      "troubleshooting": [
+        "Do the handover before access removal, or records may become orphaned. [VERIFY WITH ERICSSON: policy]"
+      ],
+      "contact_support": "Contact ericsson.password.vault.support@ericsson.com to coordinate a departure handover.",
+      "security_notes": [
+        "Handle departing-user data strictly according to policy."
+      ],
+      "related": ["account-transfer", "record-ownership-transfer"]
+    },
+    {
+      "slug": "keeper-one-time-share",
+      "title": "Keeper One-Time Share",
+      "category": "Secure Sharing",
+      "summary": "Securely share a single record with someone, even without a Keeper account.",
+      "overview": "Keeper One-Time Share lets eligible users securely share a single record with someone who may not have a Keeper account. The share can be limited and set to expire.",
+      "purpose": "Lets you share a secret safely and temporarily, without permanent access.",
+      "when_to_use": "Use this for a one-off, time-limited share, especially to an external person.",
+      "prerequisites": [
+        "Access to the record you want to share.",
+        "Eligibility to use One-Time Share. [VERIFY WITH ERICSSON: who is eligible]"
+      ],
+      "steps": [
+        "Sign in to your vault at https://keepersecurity.eu/vault/#",
+        "Open the record you want to share.",
+        "Choose the One-Time Share option.",
+        "Set the allowed access options and an expiration period.",
+        "Generate the share link and send it to the recipient through an approved channel."
+      ],
+      "expected_result": "The recipient can open the shared record until the share expires.",
+      "troubleshooting": [
+        "If the recipient cannot open it, the share may have expired or already been used."
+      ],
+      "contact_support": "If One-Time Share is unavailable to you, contact ericsson.password.vault.support@ericsson.com.",
+      "security_notes": [
+        "Only share what is necessary and set the shortest practical expiration.",
+        "Follow organizational security policies when sharing sensitive information.",
+        "Send the share link through a trusted channel."
+      ],
+      "related": ["sharing-with-external-users", "share-expiration-and-access-restrictions", "secure-sharing-best-practices"]
+    },
+    {
+      "slug": "sharing-with-external-users",
+      "title": "Sharing with External Users",
+      "category": "Secure Sharing",
+      "summary": "Safely sharing records with people outside the organization.",
+      "overview": "Sometimes you need to share a secret with someone outside Ericsson. One-Time Share is the typical safe way to do this.",
+      "purpose": "Allows controlled sharing with people who do not have an Ericsson Keeper account.",
+      "when_to_use": "Use this when an external partner needs a specific secret.",
+      "prerequisites": [
+        "Access to the record.",
+        "Permission to share externally. [VERIFY WITH ERICSSON: external sharing policy]"
+      ],
+      "steps": [
+        "Confirm that external sharing is allowed for this record. [VERIFY WITH ERICSSON]",
+        "Use Keeper One-Time Share to create a limited, expiring link.",
+        "Set the minimum access and shortest expiration needed.",
+        "Send the link through an approved, trusted channel."
+      ],
+      "expected_result": "The external user can access only the shared record, only until it expires.",
+      "troubleshooting": [
+        "If external sharing is blocked, it may be restricted by policy. [VERIFY WITH ERICSSON]"
+      ],
+      "contact_support": "Contact ericsson.password.vault.support@ericsson.com if you are unsure whether external sharing is permitted.",
+      "security_notes": [
+        "External sharing carries extra risk; share the minimum and expire it quickly.",
+        "Never share more records than strictly required."
+      ],
+      "related": ["keeper-one-time-share", "share-expiration-and-access-restrictions", "secure-sharing-best-practices"]
+    },
+    {
+      "slug": "share-expiration-and-access-restrictions",
+      "title": "Share Expiration and Access Restrictions",
+      "category": "Secure Sharing",
+      "summary": "Control how long a share lasts and what the recipient can do.",
+      "overview": "When you share a record, you can limit how long the share lasts and what access the recipient has.",
+      "purpose": "Reduces risk by making shares temporary and least-privilege.",
+      "when_to_use": "Use this whenever you set up a share and want to limit its scope.",
+      "prerequisites": [
+        "A record you are sharing."
+      ],
+      "steps": [
+        "When creating the share, set the expiration period to the shortest practical time.",
+        "Choose the permitted access options (for example, view only, if available). [VERIFY WITH ERICSSON: available options]",
+        "Confirm the settings before sending the share.",
+        "Revoke the share early if it is no longer needed. [VERIFY WITH ERICSSON: revoke steps]"
+      ],
+      "expected_result": "The share automatically expires and is limited to the access you set.",
+      "troubleshooting": [
+        "If a recipient needs longer, create a new controlled share rather than removing limits."
+      ],
+      "contact_support": "Contact ericsson.password.vault.support@ericsson.com for help with share settings.",
+      "security_notes": [
+        "Shorter expirations and least-privilege access are always safer."
+      ],
+      "related": ["keeper-one-time-share", "sharing-with-external-users", "secure-sharing-best-practices"]
+    },
+    {
+      "slug": "secure-sharing-best-practices",
+      "title": "Secure Sharing Best Practices",
+      "category": "Secure Sharing",
+      "summary": "General guidance for sharing secrets safely in Keeper.",
+      "overview": "This article summarizes good habits for sharing records safely in Keeper.",
+      "purpose": "Helps you avoid accidental exposure of sensitive information.",
+      "when_to_use": "Review this before sharing anything sensitive.",
+      "prerequisites": [
+        "Access to the records you intend to share."
+      ],
+      "steps": [
+        "Share only the specific record that is needed, never your whole folder by default.",
+        "Prefer One-Time Share with an expiration for anything temporary or external.",
+        "Give the lowest access the recipient needs.",
+        "Send share links through trusted, approved channels only.",
+        "Remove or let shares expire as soon as they are no longer needed."
+      ],
+      "expected_result": "Your sharing is limited, temporary, and auditable.",
+      "troubleshooting": [
+        "If you are unsure whether something is safe to share, ask support first."
+      ],
+      "contact_support": "Contact ericsson.password.vault.support@ericsson.com with questions about sharing policy.",
+      "security_notes": [
+        "Follow organizational security policies when sharing sensitive information.",
+        "Never share credentials over chat or email outside approved tools."
+      ],
+      "related": ["keeper-one-time-share", "sharing-with-external-users", "share-expiration-and-access-restrictions"]
+    },
+    {
+      "slug": "keeper-secrets-manager",
+      "title": "Keeper Secrets Manager",
+      "category": "Licensing and Integration",
+      "summary": "What Keeper Secrets Manager is and when it is used.",
+      "overview": "Keeper Secrets Manager (KSM) is a separate capability used to provide secrets to applications, automation, and CI/CD pipelines, rather than to people signing in.",
+      "purpose": "Lets applications retrieve secrets securely without hard-coding them.",
+      "when_to_use": "Use this when an application or pipeline needs secrets, not when a person needs to log in.",
+      "prerequisites": [
+        "A use case for machine/application secret access.",
+        "Confirmation that KSM is available for your organization and project. [VERIFY WITH ERICSSON: availability and subscription]"
+      ],
+      "steps": [
+        "Confirm that Keeper Secrets Manager is enabled for your organization and project. [VERIFY WITH ERICSSON]",
+        "Request access to KSM through the Keeper service owner. [VERIFY WITH ERICSSON: exact request route]",
+        "Follow the provided configuration to connect your application to KSM. [VERIFY WITH ERICSSON: config details]"
+      ],
+      "expected_result": "Your application can retrieve the secrets it needs through KSM.",
+      "troubleshooting": [
+        "If KSM is not available, it may depend on your subscription or configuration."
+      ],
+      "contact_support": "Contact the Keeper service owner to confirm licensing and access, or ericsson.password.vault.support@ericsson.com for help. [VERIFY WITH ERICSSON: correct contact]",
+      "security_notes": [
+        "Treat application secrets with the same care as personal credentials.",
+        "Never commit secrets into source code."
+      ],
+      "related": ["application-and-ci-cd-integration", "license-and-feature-availability", "requesting-additional-capabilities"]
+    },
+    {
+      "slug": "application-and-ci-cd-integration",
+      "title": "Application and CI/CD Integration",
+      "category": "Licensing and Integration",
+      "summary": "Using Keeper to supply secrets to automation and pipelines.",
+      "overview": "Keeper can supply secrets to applications and CI/CD pipelines, typically through Keeper Secrets Manager, so secrets are not stored in code.",
+      "purpose": "Keeps automation secure by fetching secrets at runtime instead of hard-coding them.",
+      "when_to_use": "Use this when building a pipeline or application that needs secrets.",
+      "prerequisites": [
+        "Keeper Secrets Manager access for your project. [VERIFY WITH ERICSSON]"
+      ],
+      "steps": [
+        "Confirm KSM is available and you have access.",
+        "Follow the approved integration method for your platform. [VERIFY WITH ERICSSON: supported integrations and steps]",
+        "Store only references in your pipeline configuration, not the secret values.",
+        "Test that your application retrieves secrets at runtime."
+      ],
+      "expected_result": "Your pipeline retrieves secrets securely at runtime with no secrets in code.",
+      "troubleshooting": [
+        "If retrieval fails, check your KSM access and configuration. [VERIFY WITH ERICSSON]"
+      ],
+      "contact_support": "Contact the Keeper service owner for integration help. [VERIFY WITH ERICSSON: correct contact]",
+      "security_notes": [
+        "Never print secrets in build logs.",
+        "Rotate secrets according to policy."
+      ],
+      "related": ["keeper-secrets-manager", "license-and-feature-availability", "requesting-additional-capabilities"]
+    },
+    {
+      "slug": "license-and-feature-availability",
+      "title": "License and Feature Availability",
+      "category": "Licensing and Integration",
+      "summary": "Why some Keeper features may or may not be available to you.",
+      "overview": "Some Keeper capabilities depend on your organization's subscription and configuration, so not every feature is available to everyone.",
+      "purpose": "Explains why a feature might be missing and how to find out if you can get it.",
+      "when_to_use": "Use this when a feature you expected is not available.",
+      "prerequisites": [
+        "A clear description of the feature you need."
+      ],
+      "steps": [
+        "Confirm whether the feature depends on subscription or configuration. [VERIFY WITH ERICSSON: feature matrix]",
+        "Check with the Keeper service owner whether it is enabled for your organization.",
+        "If it is not enabled, follow the process to request it (see Requesting Additional Capabilities)."
+      ],
+      "expected_result": "You understand whether the feature is available and how to request it.",
+      "troubleshooting": [
+        "Availability can change; confirm current status with the service owner. [VERIFY WITH ERICSSON]"
+      ],
+      "contact_support": "Contact the Keeper service owner to confirm licensing. [VERIFY WITH ERICSSON: correct contact]",
+      "security_notes": [
+        "Do not attempt to bypass licensing restrictions."
+      ],
+      "related": ["keeper-secrets-manager", "requesting-additional-capabilities"]
+    },
+    {
+      "slug": "requesting-additional-capabilities",
+      "title": "Requesting Additional Capabilities",
+      "category": "Licensing and Integration",
+      "summary": "How to ask for more Keeper features or capacity.",
+      "overview": "If you need a Keeper capability that is not currently enabled, you can request it through the proper process.",
+      "purpose": "Gets you access to additional features or capacity your work requires.",
+      "when_to_use": "Use this when you have confirmed a needed feature is not yet available to you.",
+      "prerequisites": [
+        "A clear business justification for the capability. [VERIFY WITH ERICSSON: who approves]"
+      ],
+      "steps": [
+        "Describe exactly what capability you need and why.",
+        "Submit the request through the approved Ericsson process. [VERIFY WITH ERICSSON: exact request route]",
+        "Provide any required justification or approval.",
+        "Wait for the service owner to confirm and enable it."
+      ],
+      "expected_result": "The capability is reviewed and, if approved, enabled for you.",
+      "troubleshooting": [
+        "If the request is declined, ask for the reason and the correct alternative."
+      ],
+      "contact_support": "Contact the Keeper service owner or ericsson.password.vault.support@ericsson.com with your request. [VERIFY WITH ERICSSON: correct contact]",
+      "security_notes": [
+        "Request only the capabilities your role genuinely needs."
+      ],
+      "related": ["license-and-feature-availability", "keeper-secrets-manager", "application-and-ci-cd-integration"]
+    }
+  ]
+}

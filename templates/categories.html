@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% block title %}Categories - Keeper Knowledge Base{% endblock %}
+
+{% block content %}
+  <div class="crumbs"><a href="/">Home</a><span>/</span>Categories</div>
+  <h1>All Categories</h1>
+  <p class="lead">Choose a category to see its support topics.</p>
+
+  <div class="grid">
+    {% for c in categories %}
+      <a class="card" href="/category/{{ c.name }}">
+        <div class="icon">{{ c.icon }}</div>
+        <h3>{{ c.name }}</h3>
+        <p>{{ c.description }}</p>
+        <span class="count">{{ c.count }} article{{ '' if c.count == 1 else 's' }}</span>
+      </a>
+    {% endfor %}
+  </div>
+{% endblock %}

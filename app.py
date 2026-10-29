@@ -15,17 +15,91 @@ every request, so searches are fast.
 
 from __future__ import annotations
 
-from flask import Flask, request, jsonify, render_template
+from flask import Flask, request, jsonify, render_template, abort
 
 from data_loader import load_documents, DatasetError
 from search_engine import SemanticSearchEngine
 from suggestions import SuggestionEngine
+from articles import store as article_store
 
 app = Flask(__name__)
 
+
+# ---------------------------------------------------------------------------
+# Jinja filter: make URLs/emails clickable and highlight verify markers.
+# The input is escaped first so it is safe to mark the result |safe.
+# ---------------------------------------------------------------------------
+import re as _re
+from markupsafe import escape as _escape, Markup
+
+
+@app.template_filter("linkify")
+def linkify(text: str) -> Markup:
+    safe = str(_escape(text))  # escape user/content text first (XSS-safe)
+
+    # URLs -> anchor tags (keep a trailing '#', strip sentence punctuation).
+    def _url(m):
+        url = m.group(0)
+        trail = ""
+        while url and url[-1] in ".,);":
+            trail = url[-1] + trail
+            url = url[:-1]
+        return (
+            f'<a href="{url}" target="_blank" rel="noopener noreferrer">{url}</a>'
+            + trail
+        )
+
+    safe = _re.sub(r"https?://[^\s<]+", _url, safe)
+    # Emails -> mailto.
+    safe = _re.sub(
+        r"[A-Za-z0-9._%+\-]+@[A-Za-z0-9.\-]+\.[A-Za-z]{2,}",
+        lambda m: f'<a href="mailto:{m.group(0)}">{m.group(0)}</a>',
+        safe,
+    )
+    # Highlight [VERIFY WITH ERICSSON ...] markers as a small badge.
+    safe = _re.sub(
+        r"\[VERIFY WITH ERICSSON[^\]]*\]",
+        lambda m: f'<span class="verify">{m.group(0)}</span>',
+        safe,
+    )
+    return Markup(safe)
+
+
+# Topics shown as "Popular" on the home page.
+POPULAR_SLUGS = [
+    "keeper-login-instructions",
+    "request-keeper-access",
+    "password-recovery",
+    "desktop-application-login-issues",
+    "admin-approval-for-new-devices",
+    "keeper-one-time-share",
+]
+
+# Map a document title (from the CSV) to its article slug, so search results
+# can link to the right detailed article page. Titles that don't map just
+# won't get a link.
+TITLE_TO_SLUG = {
+    "Keeper Login Instructions": "keeper-login-instructions",
+    "Keeper Password Reset": "password-recovery",
+    "Keeper Two-Factor Authentication": "two-factor-authentication",
+    "Admin Approval for New Devices": "admin-approval-for-new-devices",
+    "Keeper Access Request": "request-keeper-access",
+    "Keeper Shared Folder Access": "shared-folder-access",
+    "Keeper Desktop Application Login Issue": "desktop-application-login-issues",
+    "Keeper Device Approval Pending": "pending-device-approval",
+    "Keeper Desktop Application Update": "application-update-issues",
+    "Keeper Account Transfer": "account-transfer",
+    "Keeper One-Time Share": "keeper-one-time-share",
+    "Keeper Secrets Manager Access": "keeper-secrets-manager",
+    "Contact Keeper Support": "keeper-login-instructions",
+}
+
 # Search configuration.
+# fastembed (bge-small) similarity scores run higher than TF-IDF: real
+# matches land around 0.70-0.80, unrelated/gibberish around 0.40-0.48.
+# 0.55 sits safely between, so irrelevant queries return no results.
 TOP_K = 5
-MIN_SCORE = 0.30  # cosine-similarity threshold; tune higher to be stricter.
+MIN_SCORE = 0.55
 
 # Global engines, initialised at startup.
 engine: SemanticSearchEngine | None = None
@@ -43,11 +117,55 @@ def init_engine() -> None:
 
 
 # ---------------------------------------------------------------------------
-# Web page
+# Web pages
 # ---------------------------------------------------------------------------
 @app.route("/", methods=["GET"])
 def index():
-    return render_template("index.html")
+    return render_template(
+        "index.html",
+        categories=article_store.all_categories(),
+        popular=article_store.popular(POPULAR_SLUGS),
+    )
+
+
+@app.route("/categories", methods=["GET"])
+def categories():
+    return render_template(
+        "categories.html",
+        categories=article_store.all_categories(),
+    )
+
+
+@app.route("/category/<name>", methods=["GET"])
+def category(name: str):
+    meta = article_store.category_meta(name)
+    if not meta:
+        abort(404)
+    return render_template(
+        "category.html",
+        category_name=name,
+        category=meta,
+        articles=article_store.in_category(name),
+    )
+
+
+@app.route("/article/<slug>", methods=["GET"])
+def article(slug: str):
+    art = article_store.get(slug)
+    if not art:
+        abort(404)
+    # Resolve related slugs into {slug, title} for links.
+    related = []
+    for rslug in art.get("related", []):
+        r = article_store.get(rslug)
+        if r:
+            related.append({"slug": r["slug"], "title": r["title"]})
+    return render_template("article.html", a=art, related=related)
+
+
+@app.errorhandler(404)
+def not_found(_e):
+    return render_template("404.html"), 404
 
 
 # ---------------------------------------------------------------------------
@@ -81,6 +199,11 @@ def search():
         results = engine.search(query, top_k=top_k, min_score=min_score)
     except Exception as exc:
         return jsonify({"error": f"Search failed: {exc}"}), 500
+
+    # Attach a link to the detailed article page for each result (when known).
+    for r in results:
+        slug = TITLE_TO_SLUG.get(r["title"])
+        r["article_url"] = f"/article/{slug}" if slug else None
 
     message = None
     if not results:

@@ -119,7 +119,7 @@ class SemanticSearchEngine:
             semantic = float(score)
             title_words = set(tokenize(doc["title"]))
             overlap = (len(q_words & title_words) / len(q_words)) if q_words and title_words else 0.0
-            combined = semantic + 0.25 * overlap
+            combined = semantic + 0.12 * overlap
             ranked.append((combined, semantic, doc))
 
         ranked.sort(key=lambda t: t[0], reverse=True)
