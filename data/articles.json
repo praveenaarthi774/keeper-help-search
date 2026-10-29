@@ -40,7 +40,7 @@
         "A supported, up-to-date web browser."
       ],
       "steps": [
-        "Open the Keeper vault login page at https://keepersecurity.eu/vault/#",
+        "Open the Keeper vault login page at https://XXXXXXXX/vault/#",
         "Enter your Ericsson email ID in the login box.",
         "Select Enterprise SSO Login.",
         "Choose the EU Region.",
@@ -49,14 +49,14 @@
       ],
       "expected_result": "Your Keeper vault opens and you can see your stored records and folders.",
       "troubleshooting": [
-        "If the page does not load, check your internet connection and that the URL is exactly https://keepersecurity.eu/vault/#",
+        "If the page does not load, check your internet connection and that the URL is exactly https://XXXXXXXX/vault/#",
         "If sign-in fails, confirm you selected Enterprise SSO Login and the EU Region.",
         "If you are asked for device approval, see the Admin Approval for New Devices article."
       ],
-      "contact_support": "If you still cannot sign in after checking the above, contact ericsson.password.vault.support@ericsson.com with your Ericsson email ID, the browser you used, and any error message shown.",
+      "contact_support": "If you still cannot sign in after checking the above, contact XXXX@XXXX.com with your Ericsson email ID, the browser you used, and any error message shown.",
       "security_notes": [
         "Never share your Ericsson credentials.",
-        "Always confirm the URL is the official https://keepersecurity.eu/vault/# before entering any details."
+        "Always confirm the URL is the official https://XXXXXXXX/vault/# before entering any details."
       ],
       "related": ["password-recovery", "two-factor-authentication", "enterprise-sso-login-problems"]
     },
@@ -73,7 +73,7 @@
         "Access to your configured authentication method (for example, your corporate login)."
       ],
       "steps": [
-        "Go to the Keeper vault login page at https://keepersecurity.eu/vault/#",
+        "Go to the Keeper vault login page at https://XXXXXXXX/vault/#",
         "Enter your Ericsson email ID and select Enterprise SSO Login.",
         "Complete the corporate authentication steps when prompted.",
         "If your corporate sign-in itself is failing, recover your Ericsson account through the standard Ericsson IT process. [VERIFY WITH ERICSSON: exact corporate password reset channel]",
@@ -84,7 +84,7 @@
         "If Enterprise SSO rejects you, the issue is usually with the corporate account, not Keeper itself.",
         "Clear your browser cache or try a private window if the login page behaves unexpectedly."
       ],
-      "contact_support": "If you cannot sign in after recovering your corporate account, contact ericsson.password.vault.support@ericsson.com and describe exactly where the login fails.",
+      "contact_support": "If you cannot sign in after recovering your corporate account, contact XXXX@XXXX.com and describe exactly where the login fails.",
       "security_notes": [
         "Keeper support will never ask for your password. Do not share it with anyone."
       ],
@@ -103,7 +103,7 @@
         "An authenticator app or the verification method required by your organization. [VERIFY WITH ERICSSON: approved 2FA methods]"
       ],
       "steps": [
-        "Sign in to your vault at https://keepersecurity.eu/vault/#",
+        "Sign in to your vault at https://XXXXXXXX/vault/#",
         "Follow the configured two-factor authentication method set by your organization.",
         "When prompted at sign-in, enter the one-time verification code from your authenticator.",
         "Complete the sign-in."
@@ -113,7 +113,7 @@
         "If your code is rejected, check that your device clock is correct.",
         "If you lost your 2FA device, use your backup recovery codes, then register a new device."
       ],
-      "contact_support": "If you cannot complete verification and have no recovery codes, contact ericsson.password.vault.support@ericsson.com.",
+      "contact_support": "If you cannot complete verification and have no recovery codes, contact XXXX@XXXX.com.",
       "security_notes": [
         "Keep your backup recovery codes somewhere safe and private.",
         "Never share verification codes with anyone, including support staff."
@@ -133,7 +133,7 @@
         "Your Ericsson email ID."
       ],
       "steps": [
-        "Attempt to sign in from the new device at https://keepersecurity.eu/vault/#",
+        "Attempt to sign in from the new device at https://XXXXXXXX/vault/#",
         "If prompted, confirm the device approval request from your side (for example, approving from an already-trusted device or confirming an email prompt). [VERIFY WITH ERICSSON: exact self-approval method]",
         "If administrator approval is required, wait for the support team to approve the device.",
         "Once approved, sign in again on the new device."
@@ -143,7 +143,7 @@
         "If approval is taking a long time, see the Pending Device Approval article.",
         "Make sure you are approving the correct device request."
       ],
-      "contact_support": "If approval is required or stuck, contact ericsson.password.vault.support@ericsson.com with your Ericsson email ID and the device details.",
+      "contact_support": "If approval is required or stuck, contact XXXX@XXXX.com with your Ericsson email ID and the device details.",
       "security_notes": [
         "Only approve devices you recognize and are actually using.",
         "If you receive an unexpected approval request, do not approve it and report it to support."
@@ -168,14 +168,14 @@
         "Raise an access request for Ericsson Password Vault and fill in the required details.",
         "Submit the request for approval.",
         "Wait for the request to be approved and the required access group to be assigned.",
-        "Once approved, go to https://keepersecurity.eu/vault/# and sign in with Enterprise SSO Login, choosing the EU Region."
+        "Once approved, go to https://XXXXXXXX/vault/# and sign in with Enterprise SSO Login, choosing the EU Region."
       ],
       "expected_result": "After approval, you can sign in to the vault.",
       "troubleshooting": [
         "If you are unsure which access group to request, check with your manager or support. [VERIFY WITH ERICSSON: access group names]",
         "If your request is pending for a long time, follow up through the request portal."
       ],
-      "contact_support": "For help with the request, contact ericsson.password.vault.support@ericsson.com with your Ericsson email ID and the resource you need.",
+      "contact_support": "For help with the request, contact XXXX@XXXX.com with your Ericsson email ID and the resource you need.",
       "security_notes": [
         "Only request the access you actually need for your role."
       ],
@@ -194,7 +194,7 @@
         "Knowing which shared folder or team you should belong to."
       ],
       "steps": [
-        "Sign in to your vault at https://keepersecurity.eu/vault/#",
+        "Sign in to your vault at https://XXXXXXXX/vault/#",
         "Check whether the shared folder appears in your folder list.",
         "If it is missing, confirm with the folder owner that you have been added to the correct shared folder or authorized team.",
         "Ask the folder owner to add you if needed."
@@ -204,7 +204,7 @@
         "A folder can be shared with specific permissions; you may be able to view but not edit. [VERIFY WITH ERICSSON: permission model specifics]",
         "If you were recently added, sign out and back in to refresh."
       ],
-      "contact_support": "If access is still unavailable, contact the folder owner or ericsson.password.vault.support@ericsson.com to verify your permissions.",
+      "contact_support": "If access is still unavailable, contact the folder owner or XXXX@XXXX.com to verify your permissions.",
       "security_notes": [
         "Do not request access to folders you do not need.",
         "Treat shared records as confidential."
@@ -233,7 +233,7 @@
       "troubleshooting": [
         "If you are in the team but still cannot access something, the specific folder permission may differ. [VERIFY WITH ERICSSON]"
       ],
-      "contact_support": "Contact ericsson.password.vault.support@ericsson.com with your Ericsson email ID and the team or access you need.",
+      "contact_support": "Contact XXXX@XXXX.com with your Ericsson email ID and the team or access you need.",
       "security_notes": [
         "Team membership should match your actual role. Report access you should not have."
       ],
@@ -251,7 +251,7 @@
         "Successful sign-in to your vault."
       ],
       "steps": [
-        "Sign out and sign back in at https://keepersecurity.eu/vault/# to refresh your access.",
+        "Sign out and sign back in at https://XXXXXXXX/vault/# to refresh your access.",
         "Confirm whether your access request or team assignment has actually been approved.",
         "Check with the folder or record owner that you are still shared on it.",
         "If access was recently changed, allow time for the identity synchronization process to apply it."
@@ -260,7 +260,7 @@
       "troubleshooting": [
         "Recently granted access can take some time to appear after synchronization. [VERIFY WITH ERICSSON: typical sync timing]"
       ],
-      "contact_support": "If access is still missing, contact ericsson.password.vault.support@ericsson.com with your Ericsson email ID and the exact records or folders affected.",
+      "contact_support": "If access is still missing, contact XXXX@XXXX.com with your Ericsson email ID and the exact records or folders affected.",
       "security_notes": [
         "Do not attempt to work around missing access; request it properly."
       ],
@@ -278,7 +278,7 @@
         "A valid Keeper account with approved access."
       ],
       "steps": [
-        "First, check whether you can sign in through the web vault at https://keepersecurity.eu/vault/#",
+        "First, check whether you can sign in through the web vault at https://XXXXXXXX/vault/#",
         "If the web vault works but the desktop app does not, close and restart the desktop application.",
         "Check for and install any available updates for the desktop application.",
         "Try signing in again."
@@ -288,7 +288,7 @@
         "If the web vault also fails, the issue is with your account or network, not the app.",
         "Reinstalling the app can clear corrupted local data. [VERIFY WITH ERICSSON: approved install source]"
       ],
-      "contact_support": "If the issue continues, contact ericsson.password.vault.support@ericsson.com with the error details and your app version.",
+      "contact_support": "If the issue continues, contact XXXX@XXXX.com with the error details and your app version.",
       "security_notes": [
         "Only install the Keeper desktop app from the approved Ericsson software source. [VERIFY WITH ERICSSON]"
       ],
@@ -315,7 +315,7 @@
       "troubleshooting": [
         "If it stays pending too long, contact support with the device details."
       ],
-      "contact_support": "If approval is stuck, contact ericsson.password.vault.support@ericsson.com with your Ericsson email ID and the device.",
+      "contact_support": "If approval is stuck, contact XXXX@XXXX.com with your Ericsson email ID and the device.",
       "security_notes": [
         "Only confirm device approvals you actually initiated."
       ],
@@ -342,7 +342,7 @@
       "troubleshooting": [
         "If reinstalling or updating does not help, note the exact error and version."
       ],
-      "contact_support": "If issues remain, contact ericsson.password.vault.support@ericsson.com with the version and error details.",
+      "contact_support": "If issues remain, contact XXXX@XXXX.com with the version and error details.",
       "security_notes": [
         "Only update or install from the approved Ericsson source. [VERIFY WITH ERICSSON]"
       ],
@@ -360,7 +360,7 @@
         "An active Ericsson corporate account."
       ],
       "steps": [
-        "Go to https://keepersecurity.eu/vault/# and enter your Ericsson email ID.",
+        "Go to https://XXXXXXXX/vault/# and enter your Ericsson email ID.",
         "Make sure you select Enterprise SSO Login and choose the EU Region.",
         "Complete the corporate authentication prompts.",
         "If sign-in loops, clear your browser cache or use a private window and try again."
@@ -370,7 +370,7 @@
         "A failing corporate login means the problem is upstream of Keeper; recover your corporate account first.",
         "Make sure the EU Region is selected; the wrong region will fail."
       ],
-      "contact_support": "If SSO still fails, contact ericsson.password.vault.support@ericsson.com and describe exactly where it fails.",
+      "contact_support": "If SSO still fails, contact XXXX@XXXX.com and describe exactly where it fails.",
       "security_notes": [
         "Always use the official vault URL and your own corporate account."
       ],
@@ -397,7 +397,7 @@
       "troubleshooting": [
         "If you are unsure which transfer type applies, ask support before proceeding."
       ],
-      "contact_support": "Contact ericsson.password.vault.support@ericsson.com with the user involved and the business reason.",
+      "contact_support": "Contact XXXX@XXXX.com with the user involved and the business reason.",
       "security_notes": [
         "Account transfers move access to sensitive data; ensure proper authorization."
       ],
@@ -424,7 +424,7 @@
       "troubleshooting": [
         "Ownership transfer is not the same as sharing; confirm which you need."
       ],
-      "contact_support": "Contact ericsson.password.vault.support@ericsson.com with the records and the new owner.",
+      "contact_support": "Contact XXXX@XXXX.com with the records and the new owner.",
       "security_notes": [
         "Transferring ownership grants full control of those records; authorize carefully."
       ],
@@ -451,7 +451,7 @@
       "troubleshooting": [
         "Do the handover before access removal, or records may become orphaned. [VERIFY WITH ERICSSON: policy]"
       ],
-      "contact_support": "Contact ericsson.password.vault.support@ericsson.com to coordinate a departure handover.",
+      "contact_support": "Contact XXXX@XXXX.com to coordinate a departure handover.",
       "security_notes": [
         "Handle departing-user data strictly according to policy."
       ],
@@ -470,7 +470,7 @@
         "Eligibility to use One-Time Share. [VERIFY WITH ERICSSON: who is eligible]"
       ],
       "steps": [
-        "Sign in to your vault at https://keepersecurity.eu/vault/#",
+        "Sign in to your vault at https://XXXXXXXX/vault/#",
         "Open the record you want to share.",
         "Choose the One-Time Share option.",
         "Set the allowed access options and an expiration period.",
@@ -480,7 +480,7 @@
       "troubleshooting": [
         "If the recipient cannot open it, the share may have expired or already been used."
       ],
-      "contact_support": "If One-Time Share is unavailable to you, contact ericsson.password.vault.support@ericsson.com.",
+      "contact_support": "If One-Time Share is unavailable to you, contact XXXX@XXXX.com.",
       "security_notes": [
         "Only share what is necessary and set the shortest practical expiration.",
         "Follow organizational security policies when sharing sensitive information.",
@@ -510,7 +510,7 @@
       "troubleshooting": [
         "If external sharing is blocked, it may be restricted by policy. [VERIFY WITH ERICSSON]"
       ],
-      "contact_support": "Contact ericsson.password.vault.support@ericsson.com if you are unsure whether external sharing is permitted.",
+      "contact_support": "Contact XXXX@XXXX.com if you are unsure whether external sharing is permitted.",
       "security_notes": [
         "External sharing carries extra risk; share the minimum and expire it quickly.",
         "Never share more records than strictly required."
@@ -538,7 +538,7 @@
       "troubleshooting": [
         "If a recipient needs longer, create a new controlled share rather than removing limits."
       ],
-      "contact_support": "Contact ericsson.password.vault.support@ericsson.com for help with share settings.",
+      "contact_support": "Contact XXXX@XXXX.com for help with share settings.",
       "security_notes": [
         "Shorter expirations and least-privilege access are always safer."
       ],
@@ -566,7 +566,7 @@
       "troubleshooting": [
         "If you are unsure whether something is safe to share, ask support first."
       ],
-      "contact_support": "Contact ericsson.password.vault.support@ericsson.com with questions about sharing policy.",
+      "contact_support": "Contact XXXX@XXXX.com with questions about sharing policy.",
       "security_notes": [
         "Follow organizational security policies when sharing sensitive information.",
         "Never share credentials over chat or email outside approved tools."
@@ -594,7 +594,7 @@
       "troubleshooting": [
         "If KSM is not available, it may depend on your subscription or configuration."
       ],
-      "contact_support": "Contact the Keeper service owner to confirm licensing and access, or ericsson.password.vault.support@ericsson.com for help. [VERIFY WITH ERICSSON: correct contact]",
+      "contact_support": "Contact the Keeper service owner to confirm licensing and access, or XXXX@XXXX.com for help. [VERIFY WITH ERICSSON: correct contact]",
       "security_notes": [
         "Treat application secrets with the same care as personal credentials.",
         "Never commit secrets into source code."
@@ -676,7 +676,7 @@
       "troubleshooting": [
         "If the request is declined, ask for the reason and the correct alternative."
       ],
-      "contact_support": "Contact the Keeper service owner or ericsson.password.vault.support@ericsson.com with your request. [VERIFY WITH ERICSSON: correct contact]",
+      "contact_support": "Contact the Keeper service owner or XXXX@XXXX.com with your request. [VERIFY WITH ERICSSON: correct contact]",
       "security_notes": [
         "Request only the capabilities your role genuinely needs."
       ],
