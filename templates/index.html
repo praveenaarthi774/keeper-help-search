@@ -57,6 +57,25 @@
     .content { color: #cbd5e1; font-size: 0.92rem; line-height: 1.5; }
     .content a { color: var(--accent); text-decoration: underline; word-break: break-all; }
     .content a:hover { color: #7dd3fc; }
+    .content p { margin: 6px 0; }
+    .content p.intro { margin-bottom: 10px; }
+    /* numbered step list */
+    .content ol.steps {
+      margin: 8px 0 0; padding-left: 0; counter-reset: step; list-style: none;
+    }
+    .content ol.steps > li {
+      position: relative; padding: 8px 8px 8px 40px; margin-bottom: 8px;
+      background: #172033; border: 1px solid #27354a; border-radius: 8px;
+      counter-increment: step;
+    }
+    .content ol.steps > li::before {
+      content: counter(step);
+      position: absolute; left: 10px; top: 8px;
+      width: 22px; height: 22px; border-radius: 50%;
+      background: var(--accent); color: #082f49;
+      font-size: 0.8rem; font-weight: 700;
+      display: flex; align-items: center; justify-content: center;
+    }
     .msg { color: var(--muted); text-align: center; padding: 20px; }
     .error { color: #fca5a5; }
   </style>
@@ -217,8 +236,37 @@
           </div>
           <h3>${escapeHtml(r.title)}</h3>
           <div class="bar"><span style="width:${pct}%"></span></div>
-          <p class="content">${linkify(r.content)}</p>
+          <div class="content">${formatContent(r.content)}</div>
         </div>`;
+    }
+
+    // Turn a content string into nicely structured HTML.
+    // - If it contains "STEP 1 -", "STEP 2 -" ... it becomes a numbered list.
+    // - Any text before the first STEP becomes an intro paragraph.
+    // - Otherwise it's shown as a normal paragraph.
+    // Links/emails are made clickable in every case.
+    function formatContent(raw) {
+      const text = String(raw).trim();
+
+      // Does it look like step-by-step instructions?
+      const hasSteps = /STEP\s*\d+\s*-/i.test(text);
+
+      if (hasSteps) {
+        // Split into the part before "STEP 1" (intro) and the steps.
+        const firstStep = text.search(/STEP\s*1\s*-/i);
+        const intro = firstStep > 0 ? text.slice(0, firstStep).trim() : "";
+
+        // Grab each "STEP N - ...." chunk.
+        const stepRegex = /STEP\s*\d+\s*-\s*/gi;
+        const parts = text.slice(firstStep).split(stepRegex).filter(s => s.trim());
+
+        const items = parts.map(p => `<li>${linkify(p.trim())}</li>`).join("");
+        const introHtml = intro ? `<p class="intro">${linkify(intro)}</p>` : "";
+        return `${introHtml}<ol class="steps">${items}</ol>`;
+      }
+
+      // No steps - just a clean paragraph with clickable links.
+      return `<p>${linkify(text)}</p>`;
     }
 
     function escapeHtml(s) {
